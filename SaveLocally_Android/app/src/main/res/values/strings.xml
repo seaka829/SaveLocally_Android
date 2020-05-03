@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">SaveLocally_Android</string>
+    
+    <string name="main_modeTitle">保存方法の選択</string>
 </resources>
