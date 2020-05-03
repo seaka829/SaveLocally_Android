@@ -2,4 +2,9 @@
     <string name="app_name">SaveLocally_Android</string>
     
     <string name="main_modeTitle">保存方法の選択</string>
+
+    <string name="preference_key">Preferenceのキー</string>
+    <string name="preference_value">Preferenceの値</string>
+    <string name="preference_save">保存</string>
+    <string name="preference_load">読込</string>
 </resources>
