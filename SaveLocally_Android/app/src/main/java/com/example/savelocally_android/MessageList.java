@@ -47,30 +47,6 @@ public class MessageList {
     }
 
     /**
-     * 後続処理の可否
-     * WARNINGメッセージが1件以上存在する場合false
-     * @return
-     */
-    public boolean canProcess() {
-        if(getWarningCount() >= 1) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * メッセージのみリストとして取得
-     * @return
-     */
-    public ArrayList<String> getMessageOnlyList() {
-        ArrayList<String> messageOnlyList = new ArrayList<>();
-        for(int i=0; i<messageList.size(); i++) {
-            messageOnlyList.add(messageList.get(i).getMessage());
-        }
-        return messageOnlyList;
-    }
-
-    /**
      * メッセージ全件をStirngで取得
      * 複数件ある場合は、改行コードが入る
      * @return
@@ -82,7 +58,7 @@ public class MessageList {
                 message = messageList.get(i).getMessage();
                 continue;
             }
-            message = "\n" + messageList.get(i).getMessage();
+            message += "\n" + messageList.get(i).getMessage();
         }
         return message;
     }

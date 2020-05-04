@@ -2,7 +2,6 @@ package com.example.savelocally_android;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 public class PreferenceFragment extends Fragment {
@@ -70,44 +68,49 @@ public class PreferenceFragment extends Fragment {
      * 保存ボタンクリック時の処理
      */
     private void save() {
-        // エディットテキストの値を取得
         String key = keyEditText.getText().toString();
         String value = valueEditText.getText().toString();
 
-        // 保存前のチェック
         MessageList messageList = new MessageList();
+
         checkBeforeSave(key, value, messageList);
 
-        if(messageList.canProcess()) {
-            // 保存処理
-            saveByPreference(key, value);
-            Toast.makeText(getActivity(), "保存完了", Toast.LENGTH_SHORT).show();
+        if(messageList.getWarningCount() == 0) {
+            boolean result = saveByPreference(key, value);
+            if(result) {
+                messageList.addMessageI("保存完了");
+            }
+            else {
+                messageList.addMessageW("保存に失敗しました。");
+            }
         }
-        else {
-            Toast.makeText(getActivity(), messageList.getMessageAll(), Toast.LENGTH_SHORT).show();
-        }
+
+        Toast.makeText(getActivity(), messageList.getMessageAll(), Toast.LENGTH_SHORT).show();
     }
 
     /**
      * 読込ボタンクリック時の処理
      */
     private void load() {
-        // エディットテキストの値を取得
         String key = keyEditText.getText().toString();
         String value = valueEditText.getText().toString();
 
-        // 読込前のチェック
         MessageList messageList = new MessageList();
+
         checkBeforeLoad(key, value, messageList);
 
-        if(messageList.canProcess()) {
-            // 読込処理
-            valueEditText.setText(loadByPreference(key));
-            Toast.makeText(getActivity(), "読込完了", Toast.LENGTH_SHORT).show();
+        if(messageList.getWarningCount() == 0) {
+            String loadedValue = loadByPreference(key);
+            if(!loadedValue.equals("")) {
+                messageList.addMessageI("読込完了");
+            }
+            else {
+                messageList.addMessageI("キーに対応する値が保存されていません。");
+            }
+            valueEditText.setText(loadedValue);
         }
-        else {
-            Toast.makeText(getActivity(), messageList.getMessageAll(), Toast.LENGTH_SHORT).show();
-        }
+
+        Toast.makeText(getActivity(), messageList.getMessageAll(), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -157,6 +160,6 @@ public class PreferenceFragment extends Fragment {
     private String loadByPreference(String key) {
         SharedPreferences preferences = getContext().getSharedPreferences("preference", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
-        return preferences.getString(key, null);
+        return preferences.getString(key, "");
     }
 }
