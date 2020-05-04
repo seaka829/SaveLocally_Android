@@ -58,6 +58,35 @@ public class MessageList {
         return true;
     }
 
+    /**
+     * メッセージのみリストとして取得
+     * @return
+     */
+    public ArrayList<String> getMessageOnlyList() {
+        ArrayList<String> messageOnlyList = new ArrayList<>();
+        for(int i=0; i<messageList.size(); i++) {
+            messageOnlyList.add(messageList.get(i).getMessage());
+        }
+        return messageOnlyList;
+    }
+
+    /**
+     * メッセージ全件をStirngで取得
+     * 複数件ある場合は、改行コードが入る
+     * @return
+     */
+    public String getMessageAll() {
+        String message = "";
+        for(int i=0; i<messageList.size(); i++) {
+            if(message.equals("")) {
+                message = messageList.get(i).getMessage();
+                continue;
+            }
+            message = "\n" + messageList.get(i).getMessage();
+        }
+        return message;
+    }
+
     // getter, setter
     public ArrayList<Message> getMessageList() { return messageList; }
     public void setMessageList(ArrayList<Message> messageList) { this.messageList = messageList; }
