@@ -13,13 +13,17 @@ import android.widget.Spinner;
 public class MainActivity extends AppCompatActivity {
 
     // 定数
-    private final static int PREFERENCE   = 0;
-    private final static int SQLITE       = 1;
-    private final static int LOCALDATA    = 2;
-    private final static String[] saveModeList = {"Preference", "SQLite", "Local Data"};
+    private final static int PREFERENCE = 0;
+    private final static int LOCALFILE  = 1;
+    private final static int SQLITE     = 2;
+    private final static String[] saveModeList = {"Preference", "Local File", "SQLite"};
+
+    // フィールド変数
+    private int currentMode;
 
     // コンポーネント
     PreferenceFragment preferenceFragment;
+    LocalfileFragment localfileFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         // フラグメントの生成
         preferenceFragment = new PreferenceFragment();
+        localfileFragment = new LocalfileFragment();
     }
 
     /**
@@ -49,12 +54,15 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView parent, View view, int position, long id) {
                 if(position == PREFERENCE) {
                     replaceFragment(preferenceFragment);
+                    currentMode = PREFERENCE;
+                }
+                else if(position == LOCALFILE) {
+                    replaceFragment(localfileFragment);
+                    currentMode = LOCALFILE;
                 }
                 else if(position == SQLITE) {
-
-                }
-                else if(position == LOCALDATA) {
-
+                    removeFragment(preferenceFragment);
+                    removeFragment(localfileFragment);
                 }
             }
         });
@@ -67,6 +75,12 @@ public class MainActivity extends AppCompatActivity {
     private void replaceFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void removeFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.remove(fragment);
         fragmentTransaction.commit();
     }
 }

@@ -23,7 +23,7 @@
                 android:id="@+id/textView_main_modeTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:text="@string/main_modeTitle"
                 android:textSize="18sp" />
 
@@ -31,7 +31,7 @@
                 android:id="@+id/spinner_main_modeSelection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp" />
+                android:layout_margin="10dp" />
         </LinearLayout>
 
         <LinearLayout

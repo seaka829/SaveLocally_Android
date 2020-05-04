@@ -29,7 +29,6 @@ public class PreferenceFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         getComponent(view);
         setButton();
-        saveButton.setText(R.string.app_name);
     }
 
     /**

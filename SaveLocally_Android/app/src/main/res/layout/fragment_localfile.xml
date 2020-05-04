@@ -4,24 +4,15 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/editText_preference_key"
+        android:id="@+id/editText_localfile_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="150dp"
         android:layout_margin="10dp"
-        android:ems="10"
-        android:hint="@string/preference_key"
+        android:gravity="top"
+        android:hapticFeedbackEnabled="false"
+        android:hint="@string/localfile_text"
         android:importantForAutofill="no"
-        android:inputType="text" />
-
-    <EditText
-        android:id="@+id/editText_preference_value"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:ems="10"
-        android:hint="@string/preference_value"
-        android:importantForAutofill="no"
-        android:inputType="text" />
+        android:inputType="textMultiLine" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -29,19 +20,19 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button_preference_save"
+            android:id="@+id/button_localfile_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="@string/preference_save" />
+            android:text="@string/localfile_save" />
 
         <Button
-            android:id="@+id/button_preference_load"
+            android:id="@+id/button_localfile_load"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
             android:layout_weight="1"
-            android:text="@string/preference_load" />
+            android:text="@string/localfile_load" />
     </LinearLayout>
 </LinearLayout>

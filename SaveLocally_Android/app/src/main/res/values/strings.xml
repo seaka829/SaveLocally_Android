@@ -7,4 +7,8 @@
     <string name="preference_value">Preferenceの値</string>
     <string name="preference_save">保存</string>
     <string name="preference_load">読込</string>
+
+    <string name="localfile_text">テキスト</string>
+    <string name="localfile_save">保存</string>
+    <string name="localfile_load">読込</string>
 </resources>
