@@ -16,10 +16,7 @@ public class MainActivity extends AppCompatActivity {
     private final static int PREFERENCE = 0;
     private final static int LOCALFILE  = 1;
     private final static int SQLITE     = 2;
-    private final static String[] saveModeList = {"Preference", "Local File", "SQLite"};
-
-    // フィールド変数
-    private int currentMode;
+    private final static String[] saveModeList = {"Preference", "ローカルファイル", "SQLite"};
 
     // コンポーネント
     PreferenceFragment preferenceFragment;
@@ -54,11 +51,9 @@ public class MainActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView parent, View view, int position, long id) {
                 if(position == PREFERENCE) {
                     replaceFragment(preferenceFragment);
-                    currentMode = PREFERENCE;
                 }
                 else if(position == LOCALFILE) {
                     replaceFragment(localfileFragment);
-                    currentMode = LOCALFILE;
                 }
                 else if(position == SQLITE) {
                     removeFragment(preferenceFragment);
