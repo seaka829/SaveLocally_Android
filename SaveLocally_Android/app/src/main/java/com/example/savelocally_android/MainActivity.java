@@ -78,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
+    /**
+     * フラグメント（container）の削除
+     * @param fragment
+     */
     private void removeFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.remove(fragment);

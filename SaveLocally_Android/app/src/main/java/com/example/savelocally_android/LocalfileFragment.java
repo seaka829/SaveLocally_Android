@@ -7,17 +7,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
 import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 
 public class LocalfileFragment extends Fragment {
 
+    // 定数
+    private static String FILE = "file.txt";
+
+    // コンポーネント
     EditText editText;
     Button saveButton;
     Button loadButton;
@@ -64,11 +71,68 @@ public class LocalfileFragment extends Fragment {
         });
     }
 
+    /**
+     * 保存ボタンクリック時の処理
+     */
     private void save() {
-
+        String text = editText.getText().toString();
+        MessageList messageList = new MessageList();
+        saveByLocalfile(text, messageList);
+        Toast.makeText(getActivity(), messageList.getMessageAll(), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * 読込ボタンクリック時の処理
+     */
     private void load() {
+        MessageList messageList = new MessageList();
+        String text = loadByLocalfile(messageList);
+        if(messageList.getWarningCount() == 0) {
+            editText.setText(text);
+        }
+        Toast.makeText(getActivity(), messageList.getMessageAll(), Toast.LENGTH_SHORT).show();
+    }
 
+    /**
+     * ローカルファイルへのデータの保存
+     * エラーが存在した場合はメッセージリストに追加
+     * @param text
+     * @param messageList
+     */
+    private void saveByLocalfile(String text, MessageList messageList) {
+        try {
+            OutputStream out = getContext().openFileOutput(FILE, Context.MODE_PRIVATE);
+            PrintWriter writer = new PrintWriter(new OutputStreamWriter(out, "UTF-8"));
+            writer.append(text);
+            writer.close();
+            messageList.addMessageI("保存完了");
+        } catch (IOException e) {
+            e.printStackTrace();
+            messageList.addMessageW("テキスト保存に失敗しました。");
+        }
+    }
+
+    /**
+     * ローカルファイルに保存したデータを取得
+     * エラーが存在した場合はメッセージリストに追加
+     * @param messageList
+     * @return
+     */
+    private String loadByLocalfile(MessageList messageList) {
+        String text = "";
+        try {
+            InputStream in = getContext().openFileInput(FILE);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(in, "UTF-8"));
+            String buf;
+            while((buf = reader.readLine()) != null){
+                text += buf + "\n";
+            }
+            reader.close();
+            messageList.addMessageI("読込完了");
+        } catch (IOException e) {
+            e.printStackTrace();
+            messageList.addMessageW("テキスト読込に失敗しました。");
+        }
+        return text;
     }
 }
