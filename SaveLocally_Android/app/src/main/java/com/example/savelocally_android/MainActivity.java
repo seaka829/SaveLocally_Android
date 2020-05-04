@@ -14,10 +14,14 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static int PREFERENCE   = 0;
-    private static int SQLITE       = 1;
-    private static int LOCALDATA    = 2;
-    private static String[] saveModeList = {"Preference", "SQLite", "Local Data"};
+    // 定数
+    private final static int PREFERENCE   = 0;
+    private final static int SQLITE       = 1;
+    private final static int LOCALDATA    = 2;
+    private final static String[] saveModeList = {"Preference", "SQLite", "Local Data"};
+
+    // コンポーネント
+    PreferenceFragment preferenceFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         setSpinner();
+
+        // フラグメントの生成
+        preferenceFragment = new PreferenceFragment();
     }
 
     /**
@@ -43,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView parent, View view, int position, long id) {
                 if(position == PREFERENCE) {
-
+                    replaceFragment(preferenceFragment);
                 }
                 else if(position == SQLITE) {
 
